@@ -2,7 +2,7 @@
 
 set_post_thumbnail_size(900, 9999, true);
 add_theme_support('post-thumbnails');
-add_image_size( 'rect', 500, 500, true);
+add_image_size( 'square', 500, 500, true);
 add_image_size( 'normal', 1000, 667, true);
 
 // Excerptの設定 250文字までの抜粋で残りは...として表示

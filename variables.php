@@ -23,7 +23,7 @@
     if ( has_post_thumbnail() ) {
         $thumbnail_image_id = get_post_thumbnail_id();
         list($thumbnail_image,) = wp_get_attachment_image_src( $thumbnail_image_id , 'normal');
-        list($thumbnail_medium_image,) = wp_get_attachment_image_src( $thumbnail_image_id , 'medium');
+        list($thumbnail_image_square,) = wp_get_attachment_image_src( $thumbnail_image_id , 'square');
     }
     // アイキャッチが含まれない場合はnullではなく特定の画像を入力する場合
     /*
