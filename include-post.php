@@ -1,6 +1,6 @@
 <article class="col-4">
     <div class="card h-100">
-        <a href="<?php the_permalink() ?>"><img class="bd-placeholder-img card-img-top w-100" src="<?php echo $thumbnail_image ?>" alt="<?php the_title() ?>"></a>
+        <a href="<?php the_permalink() ?>"><img class="bd-placeholder-img card-img-top w-100" src="<?php echo $thumbnail_image_square ?>" alt="<?php the_title() ?>"></a>
         <div class="card-body">
             <h3><?php the_title() ?></h3>
             <p class="card-text"><?php echo $description ?></p>

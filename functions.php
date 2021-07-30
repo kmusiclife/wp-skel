@@ -56,3 +56,48 @@ function custom_post_force_slug( $slug, $post_ID, $post_status, $post_type ) {
 add_filter( 'wp_unique_post_slug', 'custom_post_force_slug', 10, 4 );
 */
 
+// 外観のカスタマイズに「テーマ基本設定」を追加
+/* テーマ内では echo custom_theme_setting('setting_value_one') として利用 */
+/*
+add_action('customize_register', function($wp_custom_theme) {
+
+  $wp_custom_theme->add_section( 'custom_theme_section', array (
+    'title' => 'テーマ基本設定',
+    'priority' => 100,
+  ));
+  custom_theme_control($wp_custom_theme, array(
+    'id' => 'setting_value_one', 
+    'priority' => 10,
+    'type' => 'textarea',
+    'label' => '設定項目のラベル',
+    'description' => '設定項目の説明文章。',
+    'default' => '',
+  ));
+});
+function custom_theme_control(&$wp_custom_theme, $params=array()){
+
+  if(!isset($params['id'])) return null;
+  if(!isset($params['default'])) $params['default'] = '';
+  if(!isset($params['label'])) $params['label'] = '';
+  if(!isset($params['description'])) $params['description'] = '';
+  if(!isset($params['type'])) $params['type'] = 'textarea';
+  if(!isset($params['priority'])) $params['priority'] = 20;
+
+  $wp_custom_theme->add_setting( 'custom_theme_setting_'.$params['id'], array (
+    'default' => $params['default'],
+  ));
+  $wp_custom_theme->add_control( 'custom_theme_setting_'.$params['id'], array(
+    'section' => 'custom_theme_section',
+    'settings' => 'custom_theme_setting_'.$params['id'],
+    'label' => $params['label'],
+    'description' => $params['description'],
+    'type' => $params['type'],
+    'priority' => $params['priority'],
+  ));
+  return $wp_custom_theme;
+
+}
+function custom_theme_setting($id) {
+  return get_theme_mod( 'custom_theme_setting_'.$id, true );
+}
+*/

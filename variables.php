@@ -19,17 +19,15 @@
     $post_revision = count( wp_get_post_revisions( get_the_id() ) );
 
     // アイキャッチ 
-    $thumbnail_image = $thumbnail_medium_image = null;
+    $thumbnail_image = $thumbnail_image_square = null;
     if ( has_post_thumbnail() ) {
         $thumbnail_image_id = get_post_thumbnail_id();
         list($thumbnail_image,) = wp_get_attachment_image_src( $thumbnail_image_id , 'normal');
         list($thumbnail_image_square,) = wp_get_attachment_image_src( $thumbnail_image_id , 'square');
     }
     // アイキャッチが含まれない場合はnullではなく特定の画像を入力する場合
-    /*
     if(!$thumbnail_image) $thumbnail_image = get_template_directory_uri().'/images/thumbnail.jpg';
-    if(!$thumbnail_medium_image) $thumbnail_image = get_template_directory_uri().'/images/thumbnail.jpg';
-    */
+    if(!$thumbnail_image_square) $thumbnail_image_square = get_template_directory_uri().'/images/thumbnail-square.jpg';
 
     // カスタムポストで画像以外の場合
     /*
@@ -39,10 +37,10 @@
     // カスタムポストで画像を登録する場合
     /*
     $post_custom_image_id = get_post_meta(get_the_id(), 'carousel_image', true);
-    $post_custom_image = $post_custom_medium_image = null;
+    $post_custom_image = $post_custom_image_square = null;
     if ( $post_custom_image_id ) {
-        list($post_custom_image,) = wp_get_attachment_image_src( $post_custom_image_id , 'medium_large');
-        list($post_custom_medium_image,) = wp_get_attachment_image_src( $post_custom_image_id , 'medium');
+        list($post_custom_image,) = wp_get_attachment_image_src( $post_custom_image_id , 'normal');
+        list($post_custom_image_square,) = wp_get_attachment_image_src( $post_custom_image_id , 'square');
     }
     */
     
