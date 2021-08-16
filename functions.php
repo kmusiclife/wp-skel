@@ -101,3 +101,15 @@ function custom_theme_setting($id) {
   return get_theme_mod( 'custom_theme_setting_'.$id, true );
 }
 */
+// アップロードファイルをuniqid().(jpg|png|pdf)に置き換え
+function rename_mediafile($filename) {
+  $info = pathinfo($filename);
+  if( isset($info['extension']) ){
+    $ext = strtolower($info['extension']);
+    if( preg_match('/jpg|png|pdf/', $ext) ) {
+      return uniqid() . '.' . $ext;
+    }
+  }
+  return $filename;
+}
+add_filter('sanitize_file_name', 'rename_mediafile', 10);
