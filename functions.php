@@ -11,6 +11,26 @@ add_filter( 'excerpt_length', 'custom_excerpt_length', 10 );
 function custom_excerpt_more( $more ) { return '...'; }
 add_filter( 'excerpt_more', 'custom_excerpt_more' );
 
+// アップロードする拡張子の制限
+add_filter('upload_mimes',function($mimes) {
+    $mimes = array(
+        'jpg|jpeg|jpe' => 'image/jpeg',
+        'pdf' => 'application/pdf'
+    );
+    return $mimes;
+});
+// アップロードファイルをuniqid().(jpg|png|pdf)に置き換え
+add_filter('sanitize_file_name', function($filename) {
+  $info = pathinfo($filename);
+  if( isset($info['extension']) ){
+    $ext = strtolower($info['extension']);
+    if( preg_match('/jpg|pdf/', $ext) ) {
+      return uniqid() . '.' . $ext;
+    }
+  }
+  return $filename;
+}, 10);
+
 // トピックスのカスタムポストを登録する
 // ROUTER: /topics
 // SINGLE TEMPLATE: single-topics.php or single.php
@@ -30,7 +50,6 @@ register_post_type('topics', array(
     'supports' => array('title', 'editor', 'author', 'thumbnail', 'custom-fields', 'revisions', 'page-attributes', 'excerpt')
 ));
 */
-
 // トピックスのtaxonomyを登録する
 // ROUTER: /subject/xxx (xxxはtaxonomy追加時のslug) 
 // TEMPLATE: taxonomy-subject.php or taxonomy.php
@@ -56,6 +75,9 @@ function custom_post_force_slug( $slug, $post_ID, $post_status, $post_type ) {
 add_filter( 'wp_unique_post_slug', 'custom_post_force_slug', 10, 4 );
 */
 
+/* -----------------------------------------------------------
+ 外観のカスタマイズ
+----------------------------------------------------------- */
 // 外観のカスタマイズに「テーマ基本設定」を追加
 /* テーマ内では echo custom_theme_setting('setting_value_one') として利用 */
 /*
@@ -101,15 +123,4 @@ function custom_theme_setting($id) {
   return get_theme_mod( 'custom_theme_setting_'.$id, true );
 }
 */
-// アップロードファイルをuniqid().(jpg|png|pdf)に置き換え
-function rename_mediafile($filename) {
-  $info = pathinfo($filename);
-  if( isset($info['extension']) ){
-    $ext = strtolower($info['extension']);
-    if( preg_match('/jpg|png|pdf/', $ext) ) {
-      return uniqid() . '.' . $ext;
-    }
-  }
-  return $filename;
-}
-add_filter('sanitize_file_name', 'rename_mediafile', 10);
+
